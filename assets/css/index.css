@@ -1,0 +1,13 @@
+.navbar {
+    width: 100%;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #navbarNav {
+    margin-left: auto; 
+  }
