@@ -134,4 +134,3 @@ const limparTabela = () => {
 document.addEventListener('DOMContentLoaded', () => {
     getUsers(); 
 });
-
