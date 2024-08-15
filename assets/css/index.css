@@ -1,3 +1,10 @@
+.hidden{
+  display: none;
+}
+
+#inputId-layoutGet{
+  width: 42px
+}
 .navbar {
     width: 100%;
 }
