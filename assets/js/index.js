@@ -58,7 +58,7 @@ const mostrarListaCompleta = () => {
 const buscarUsuario = () => {
     const id = document.getElementById('idUser').value;
 
-    if (id >= 1 && id <= 100) {
+    if (id >= 1 && id <= 10) {
         fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
             .then(response => response.json())
             .then(data => {

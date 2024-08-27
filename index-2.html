@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="assets/css/index.css">
+    <title>Projeto API REST</title>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark ">
+            <div class="container-fluid d-flex justify-content-between ">
+                <div>
+                    <a class="navbar-brand text-light" href="index-2.html">Consumo de API</a>
+                </div>
+                <div>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a id="nvUsers" class="nav-link text-light" href="#">User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="nvCep" class="nav-link active text-light" aria-current="page" href="#">CEP</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <div class="container" id="idContainer">
+
+            <!-- Layout Users -->
+
+            <div id="layoutUsers" class="hidden">
+                <h1 class="text-center text-danger">Users</h1>
+                <!-- Buscar -->
+                <div class="container-fluid p-2 pb-5">
+                    <form class="row g-4">
+                        <div class=" col-auto">
+                            <!-- <label for="inputPassword2" class="visually-hidden">Id do Usuário</label> -->
+                            <input id="idUser" type="number" class="form-control" placeholder="Id do Usuário">
+                        </div>
+
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-outline-primary"
+                                onclick="buscarUsuario()">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Botões  -->
+                <div class="col-auto text-danger">
+                    <button type="button" class="btn btn-outline-danger" onclick="totalUsuario()">CLIQUE AQUI PARA SABER
+                        O
+                        TOTAL
+                        DE USUÁRIOS.</button>
+
+                    <button type="submit" class="btn btn-outline-primary" onclick="mostrarListaCompleta()">Mostrar Lista
+                        Completa</button>
+
+
+                    <button type="reset" class="btn btn-outline-secondary" onclick="limparTabela()">Limpar
+                        Lista</button>
+                    <h1 id="total"></h1>
+                </div>
+
+                <!-- Tabela  -->
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Nome de Usuário</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Endereço</th>
+                                <th scope="col">Empresa</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Excluir</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tbody"></tbody>
+
+                    </table>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Editar Usuário</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editForm">
+                                    <div class="mb-3">
+                                        <label for="inputNome" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" id="inputNome" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputNomeUser" class="form-label">Nome de Usuário</label>
+                                        <input type="text" class="form-control" id="inputNomeUser" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="inputEmail" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputEndereco" class="form-label">Endereço</label>
+                                        <input type="text" class="form-control" id="inputEndereco" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputEmpresa" class="form-label">Empresa</label>
+                                        <input type="text" class="form-control" id="inputEmpresa" required>
+                                    </div>
+                                    <input type="hidden" id="userId">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="salvarAlteracoes()">Save
+                                    changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Layout Cep  -->
+            <div id="layoutCep" class="hidden">
+                <h1 class="text-center text-danger">Buscar Cep</h1>
+
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <tbody id="tbody">
+                            <tr>
+                                <th scope="col">
+                                    <input type="text" id="inputId-layoutGet" class="form-control" placeholder="ID"
+                                        aria-label="ID" aria-describedby="basic-addon1" disabled>
+                                </th>
+                                <th scope="col">
+                                    <input type="text" id="inputNome-layoutGet" class="form-control" placeholder="NOME"
+                                        aria-label="NOME" aria-describedby="basic-addon1">
+                                </th>
+                                <th scope="col">
+                                    <input type="text" id="inputNomeUser-layoutGet" class="form-control"
+                                        placeholder="NOME DE USUÁRIO" aria-label="NOME DE USUARIO"
+                                        aria-describedby="basic-addon1">
+                                </th>
+                                <th scope="col">
+                                    <input type="text" id="inputEmail-layoutGet" class="form-control"
+                                        placeholder="EMAIL" aria-label="Email" aria-describedby="basic-addon1">
+                                </th>
+                                <th scope="col">
+                                    <input type="text" id="inputEndereco-layoutGet" class="form-control"
+                                        placeholder="ENDEREÇO" aria-label="Endereço" aria-describedby="basic-addon1">
+                                </th>
+                                <th scope="col">
+                                    <input type="text" id="inputEmpresa-layoutGet" class="form-control"
+                                        placeholder="EMPRESA" aria-label="Empresa" aria-describedby="basic-addon1">
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-outline-warning" onclick="editarUsuario()">Editar</button>
+
+                </div>
+
+            </div>
+
+            <!-- Final Containers -->
+        </div>
+    </main>
+
+
+    <script src="assets/js/editar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
