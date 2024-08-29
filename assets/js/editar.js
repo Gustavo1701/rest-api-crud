@@ -118,7 +118,8 @@ const buscarUsuario = () => {
                 btnEdit.className = 'btn btn-warning btn-sm';
                 btnEdit.innerHTML = '<i class="fas fa-edit"></i>';
                 btnEdit.onclick = () => {
-                    alert('Editar clicado'); // Substitua pelo código real de edição
+                    const modal = new bootstrap.Modal(document.getElementById('editModal'));
+                    modal.show(); // Substitua pelo código real de edição
                 };
                 tdEdit.appendChild(btnEdit);
                 tr.appendChild(tdEdit);
