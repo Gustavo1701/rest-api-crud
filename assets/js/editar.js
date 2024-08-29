@@ -49,26 +49,26 @@ const mostrarListaCompleta = () => {
                 tdCompany.textContent = u.company.name;
                 tr.appendChild(tdCompany);
 
-                 // Adiciona as células para os botões de editar e excluir
-                 const tdEdit = document.createElement('td');
-                 const btnEdit = document.createElement('button');
-                 btnEdit.className = 'btn btn-warning btn-sm';
-                 btnEdit.innerHTML = '<i class="fas fa-edit"></i>';
-                 btnEdit.onclick = () => {
-                     alert('Editar clicado'); // Substitua pelo código real de edição
-                 };
-                 tdEdit.appendChild(btnEdit);
-                 tr.appendChild(tdEdit);
- 
-                 const tdDelete = document.createElement('td');
-                 const btnDelete = document.createElement('button');
-                 btnDelete.className = 'btn btn-danger btn-sm';
-                 btnDelete.innerHTML = '<i class="fas fa-trash"></i>';
-                 btnDelete.onclick = () => {
-                     alert('Excluir clicado'); // Substitua pelo código real de exclusão
-                 };
-                 tdDelete.appendChild(btnDelete);
-                 tr.appendChild(tdDelete);
+                // Adiciona as células para os botões de editar e excluir
+                const tdEdit = document.createElement('td');
+                const btnEdit = document.createElement('button');
+                btnEdit.className = 'btn btn-warning btn-sm';
+                btnEdit.innerHTML = '<i class="fas fa-edit"></i>';
+                btnEdit.onclick = () => {
+                    alert('Editar clicado'); // Substitua pelo código real de edição
+                };
+                tdEdit.appendChild(btnEdit);
+                tr.appendChild(tdEdit);
+
+                const tdDelete = document.createElement('td');
+                const btnDelete = document.createElement('button');
+                btnDelete.className = 'btn btn-danger btn-sm';
+                btnDelete.innerHTML = '<i class="fas fa-trash"></i>';
+                btnDelete.onclick = () => {
+                    alert('Excluir clicado'); // Substitua pelo código real de exclusão
+                };
+                tdDelete.appendChild(btnDelete);
+                tr.appendChild(tdDelete);
 
                 tbody.appendChild(tr);
             });
@@ -210,3 +210,24 @@ document.getElementById('nvCep').addEventListener('click', () => exibirLayout('l
 document.addEventListener('DOMContentLoaded', () => {
     exibirLayout('layoutUsers'); // Exibe o layoutUsers por padrão
 });
+
+
+/////////////////////  CEP   ////////////////////////
+//console.log('js link');
+const cep = document.querySelector('#cep');
+
+const consultaCep = async () => {
+    let cepValue = cep.value;
+    console.log(cepValue);
+
+    if (cepValue.length === 8) {
+        try {
+            const response =
+                await axios.get(`https://brasilapi.com.br/api/cep/v2/${cepValue}`);
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+//consultaCep('60420670')

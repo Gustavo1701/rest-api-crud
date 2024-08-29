@@ -8,7 +8,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="assets/css/index.css">
     <title>Projeto API REST</title>
 </head>
@@ -144,47 +145,52 @@
 
             <!-- Layout Cep  -->
             <div id="layoutCep" class="hidden">
-                <h1 class="text-center text-danger">Buscar Cep</h1>
+                <h1 class="text-center text-danger">CEP</h1>
+                <form class="row g-3" id="form">
+                    <div class="col-md-2">
+                        <label for="cep" class="form-label">CEP</label>
+                        <input type="cep" class="form-control" id="cep" oninput="consultaCep()">
+                    </div>
+                    <div class="col-md-7">
+                        <label for="logradouro" class="form-label">Logradouro</label>
+                        <input type="logradouro" class="form-control" id="logradouro" disabled>
+                    </div>
+                    <div class="col-1">
+                        <label for="numero" class="form-label">Nº</label>
+                        <input type="text" class="form-control" id="numero">
+                    </div>
+                    <div class="col-10">
+                        <label for="complemento" class="form-label">Complemento</label>
+                        <input type="text" class="form-control" id="complemento">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="bairro" class="form-label">Bairro</label>
+                        <input type="text" class="form-control" id="bairro" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="uf" class="form-label">UF</label>
+                        <select id="uf" class="form-select">
+                            <option selected>Escolha...</option>
 
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped">
-                        <tbody id="tbody">
-                            <tr>
-                                <th scope="col">
-                                    <input type="text" id="inputId-layoutGet" class="form-control" placeholder="ID"
-                                        aria-label="ID" aria-describedby="basic-addon1" disabled>
-                                </th>
-                                <th scope="col">
-                                    <input type="text" id="inputNome-layoutGet" class="form-control" placeholder="NOME"
-                                        aria-label="NOME" aria-describedby="basic-addon1">
-                                </th>
-                                <th scope="col">
-                                    <input type="text" id="inputNomeUser-layoutGet" class="form-control"
-                                        placeholder="NOME DE USUÁRIO" aria-label="NOME DE USUARIO"
-                                        aria-describedby="basic-addon1">
-                                </th>
-                                <th scope="col">
-                                    <input type="text" id="inputEmail-layoutGet" class="form-control"
-                                        placeholder="EMAIL" aria-label="Email" aria-describedby="basic-addon1">
-                                </th>
-                                <th scope="col">
-                                    <input type="text" id="inputEndereco-layoutGet" class="form-control"
-                                        placeholder="ENDEREÇO" aria-label="Endereço" aria-describedby="basic-addon1">
-                                </th>
-                                <th scope="col">
-                                    <input type="text" id="inputEmpresa-layoutGet" class="form-control"
-                                        placeholder="EMPRESA" aria-label="Empresa" aria-describedby="basic-addon1">
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-outline-warning" onclick="editarUsuario()">Editar</button>
+                        </select>
+                    </div>
 
-                </div>
+                    <div class="col-md-2">
+                        <label for="localidade" class="form-label">Localidade</label>
+                        <select id="localidade" class="form-select">
+                            <option selected>Escolha...</option>
+                        </select>
+                    </div>
+                    <div class="col-12 m-2">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                </form>
 
             </div>
 
-            <!-- Final Containers -->
+        </div>
+
+        <!-- Final Containers -->
         </div>
     </main>
 
