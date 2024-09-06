@@ -40,7 +40,7 @@
 
     <main>
 
-        <div class="container" id="idContainer">
+        <div class="container bg" id="idContainer">
 
             <!-- Layout Users -->
 
@@ -97,6 +97,7 @@
 
                     </table>
                 </div>
+
                 <!-- Modal -->
                 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
                     aria-hidden="true">
@@ -145,7 +146,7 @@
 
             <!-- Layout Cep  -->
             <div id="layoutCep" class="hidden">
-                <h1 class="text-center text-danger">CEP</h1>
+                <h1 class="text-center text-danger">Busca CEP</h1>
                 <form class="row g-3" id="form">
                     <div class="col-md-2">
                         <label for="cep" class="form-label">CEP</label>
@@ -170,19 +171,18 @@
                     <div class="col-md-2">
                         <label for="uf" class="form-label">UF</label>
                         <select id="uf" class="form-select">
-                            <option selected>Escolha...</option>
-
+                            <option value="">Selecione um estado</option>                            
                         </select>
-                    </div>
+                    </div>                   
 
                     <div class="col-md-2">
                         <label for="localidade" class="form-label">Localidade</label>
                         <select id="localidade" class="form-select">
-                            <option selected>Escolha...</option>
+                            <option value="">Selecione um município</option>                            
                         </select>
                     </div>
                     <div class="col-12 m-2">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="submit" class="btn btn-success" onclick="salvarAlteracoesCep()">Salvar</button>
                     </div>
                 </form>
 

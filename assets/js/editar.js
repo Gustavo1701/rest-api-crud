@@ -192,10 +192,6 @@ const limparTabela = () => {
     document.getElementById('total').textContent = '';
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-    getUsers();
-});
-
 // Função para exibir o layout desejado e esconder os outros
 const exibirLayout = (layoutId) => {
     document.querySelectorAll('[id^="layout"]').forEach(el => el.classList.add('hidden'));
@@ -213,21 +209,95 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /////////////////////  CEP   ////////////////////////
-//console.log('js link');
 const cep = document.querySelector('#cep');
+const numero = document.querySelector('#numero');
 
 const consultaCep = async () => {
     let cepValue = cep.value;
     console.log(cepValue);
 
     if (cepValue.length === 8) {
+        // Tratamento para verificar a validade do CEP
         try {
-            const response =
-                await axios.get(`https://brasilapi.com.br/api/cep/v2/${cepValue}`);
-            console.log(response.data);
+            const res = await axios.get(`https://brasilapi.com.br/api/cep/v2/${cepValue}`);
+            console.log(res.data);
+
+            preencherCampos(res.data);
+            numero.focus();
+
+            preencherMunicipios(res.data.city);
+
+
+
         } catch (error) {
-            console.error(error);
+            alert('CEP inválido.')
         }
+
     }
 }
-//consultaCep('60420670')
+
+const preencherCampos = data => {
+    const logradouro = document.querySelector('#logradouro');
+    const bairro = document.querySelector('#bairro');
+    const uf = document.querySelector('#uf');
+
+    logradouro.value = data.street;
+    bairro.value = data.neighborhood;
+    uf.value = data.state;
+}
+
+const preencherUf = () => {
+    fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+        .then(response => response.json())
+        .then(data => {
+            const gerarOptions = data.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
+            const selectUf = document.querySelector('#uf');
+
+            //Gerando as opções de estados
+            gerarOptions.forEach(uf => {
+                selectUf.innerHTML += `<option value="${uf.sigla}">${uf.nome}</option>`
+            })
+
+
+        })
+
+}
+
+const preencherMunicipios = (city) => {
+    const optionUf = document.querySelector('#uf').value;
+    const selectElementLocalidade = document.querySelector('#localidade');
+
+    console.log(optionUf);
+
+    // Limpa o select de municípios antes de adicionar novos valores
+    // selectElementLocalidade.innerHTML = '<option value="">Selecione o município</option>';
+
+    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${optionUf}/municipios`)
+        .then(response => response.json())
+        .then(data => {
+            const gerarMunicipio = data;
+
+            //Gerando as opções de municipio
+            gerarMunicipio.forEach(municipio => {
+                // Sem esse tratamento, o option fica sempre setado para a ultima opção
+                if (municipio.nome == city) {
+                    selectElementLocalidade.innerHTML += `<option selected value="${municipio.nome}">${municipio.nome}</option>`
+                }
+                else{
+                    selectElementLocalidade.innerHTML += `<option value="${municipio.nome}">${municipio.nome}</option>`
+                }
+            })
+
+        })
+}
+
+const salvarAlteracoesCep = () => {
+   if(cep.length === 8){
+    alert('Salvo');
+   } else {
+    alert('Preencha os campos');
+   }
+    
+}
+
+preencherUf();
